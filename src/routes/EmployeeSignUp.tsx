@@ -40,7 +40,7 @@ export default function EmployeeSignUp() {
             .then(() => {
               localStorage.setItem("@userData", JSON.stringify(userData))
               setUserData(userData)
-              toast.success(`Seja muito bem vindo colaborador, ${name}`)
+              toast.success(`Seja muito bem vindo colaborador: ${name}`)
               navigate("/", { replace: true })
               setLoadingAuth(false)
             })
