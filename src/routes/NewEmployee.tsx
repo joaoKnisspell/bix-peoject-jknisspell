@@ -107,7 +107,7 @@ export default function NewEmployee() {
 
 
   return (
-      <main className='w-full min-h-screen h-full flex flex-col gap-6 items-center justify-center bg-gradient-to-t from-indigo-200 via-sky-200 to-stone-100'>
+      <main className='w-full min-h-[calc(100vh+80px)] lg:min-h-screen h-full flex flex-col gap-6 items-center justify-center bg-gradient-to-t from-indigo-200 via-sky-200 to-stone-100'>
         {user?.isAdmin ? (
           <>
             <h1 className='text-2xl font-medium'>{currentEmployee ? `Editar Funcionário: ${currentEmployee.name}` : 'Novo Funcionário:'}</h1>
