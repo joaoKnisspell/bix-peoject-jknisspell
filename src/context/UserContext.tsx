@@ -93,7 +93,7 @@ export function UserContextProvider({ children }: { children: React.ReactNode })
             await setDoc(docRef, {
                 name,
                 startDate: format(new Date(startDate), "dd/MM/yyyy"),
-                exitDate: format(new Date(exitDate), "dd/MM/yyyy"),
+                exitDate: exitDate !== '' ? format(new Date(exitDate), "dd/MM/yyyy") : '-----',
                 vacationDate,
                 createdAt: new Date()
             })
