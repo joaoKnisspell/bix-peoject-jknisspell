@@ -108,7 +108,7 @@ export default function NewCompany() {
   return (
       <main className='w-full min-h-[calc(100vh+80px)] lg:min-h-screen h-full flex flex-col gap-6 items-center justify-center bg-gradient-to-t from-indigo-200 via-sky-200 to-stone-100'>
         {user?.isAdmin ? (
-          <>
+          <div className='w-full h-full lg:px-0 px-4 flex flex-col gap-6 items-center justify-center'>
             <h1 className='text-2xl font-medium'>{currentCompany ? `Editar Empresa: ${currentCompany.name}` : 'Adicionar Empresa:'}</h1>
             <form onSubmit={handleAddCompany} className="flex flex-col gap-6 max-w-[500px] w-full bg-white shadow-lg rounded-lg p-4">
               <label className='flex flex-col gap-2'>
@@ -135,7 +135,7 @@ export default function NewCompany() {
                 {currentCompany && <button onClick={handleOnDelete} className='hover:bg-red-600 bg-red-500 text-zinc-50 py-3 text-sm md:text-base font-medium' type='button'>Excluir</button>}
               </div>
             </form>
-          </>
+          </div>
         ) : (
             <div className="flex flex-col gap-6 max-w-[350px] w-full bg-white shadow-lg p-4 rounded-lg">
               <span className='flex flex-col'>Nome da empresa: <b>{currentCompany?.name}</b></span>
