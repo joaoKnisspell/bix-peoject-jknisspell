@@ -10,7 +10,7 @@ type CompanyItemProps = {
 
 export default function CompanyItem({ id, name, startDate, category, status }: CompanyItemProps) {
   return (
-    <div className="w-full bg-gray-100 py-2 px-6 rounded-lg min-w-[39.375rem]">
+    <div className="w-full bg-gray-100 p-2 lg:py-2 lg:px-6 rounded-lg min-w-[39.375rem]">
       <Link relative="path" to={`/company/${id}`} className="w-full h-full flex items-center justify-between"> 
         <span className="font-medium flex-1">{name}</span>
         <span className="flex-1"><b>Entrada:</b> {startDate}</span>
