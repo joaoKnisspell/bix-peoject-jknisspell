@@ -111,7 +111,7 @@ export default function NewEmployee() {
         {user?.isAdmin ? (
           <>
             <h1 className='text-2xl font-medium'>{currentEmployee ? `Editar Funcionário: ${currentEmployee.name}` : 'Novo Funcionário:'}</h1>
-            <form onSubmit={handleAddEmployee} className="flex flex-col gap-6 max-w-[500px] w-full bg-white shadow-lg p-4 rounded-lg">
+            <form onSubmit={handleAddEmployee} className="flex flex-col gap-4 lg:gap-6 max-w-[500px] w-full bg-white shadow-lg p-4 rounded-lg">
               <label className='flex flex-col gap-2'>
                {currentEmployee ? `Nome atual: ${currentEmployee.name}` : 'Nome do funcionário:'}
                 <Input value={name} onChange={(e) => setName(e.target.value)} required placeholder='Digite o nome do funcionário...' />
