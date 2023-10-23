@@ -94,7 +94,7 @@ export function UserContextProvider({ children }: { children: React.ReactNode })
                 name,
                 startDate: format(new Date(startDate), "dd/MM/yyyy"),
                 exitDate: exitDate !== '' ? format(new Date(exitDate), "dd/MM/yyyy") : '-----',
-                vacationDate,
+                vacationDate: format(new Date(vacationDate), "dd/MM/yyyy"),
                 createdAt: new Date()
             })
                 .then(() => {
