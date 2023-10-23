@@ -94,7 +94,8 @@ export function UserContextProvider({ children }: { children: React.ReactNode })
                 name,
                 startDate,
                 exitDate,
-                vacationDate
+                vacationDate,
+                createdAt: new Date()
             })
                 .then(() => {
                     toast.success("Documento atualizado com sucesso!")
@@ -133,7 +134,8 @@ export function UserContextProvider({ children }: { children: React.ReactNode })
                 name,
                 startDate: format(new Date(startDate), "dd/MM/yyyy"),
                 category,
-                status
+                status,
+                createdAt: new Date()
             })
                 .then(() => {
                     toast.success("Documento atualizado com sucesso!")
