@@ -1,9 +1,13 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
+//Toastfy
+import { toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+
 //Firebase imports
 import { auth, db } from "../libs/firebase";
 import { signOut } from "firebase/auth";
-import { addDoc, collection, deleteDoc, doc, getDocs, setDoc } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDocs, orderBy, query, setDoc } from "firebase/firestore";
 import { format } from "date-fns";
 
 type UserContextProps = {
@@ -59,6 +63,7 @@ export function UserContextProvider({ children }: { children: React.ReactNode })
     //Sign Out Function
     async function signOutUser() {
         await signOut(auth)
+        toast.info("Logout realizado com sucesso, volte sempre!")
     }
 
     //Add Employee
@@ -68,12 +73,12 @@ export function UserContextProvider({ children }: { children: React.ReactNode })
             await addDoc(docRef, {
                 name,
                 startDate: format(new Date(startDate), "dd/MM/yyyy"),
-                exitDate: exitDate ? format(new Date(exitDate), "dd/MM/yyyy") : '--/--/----',
+                exitDate: exitDate ? format(new Date(exitDate), "dd/MM/yyyy") : '-----',
                 vacationDate: format(new Date(vacationDate), "dd/MM/yyyy"),
                 createdAt: new Date()
             })
                 .then(() => {
-                    alert('Funcionário cadastrado com sucesso!')
+                    toast.success('Funcionário cadastrado com sucesso!')
                     getEmployees()
                 })
         } catch (err) {
@@ -92,7 +97,7 @@ export function UserContextProvider({ children }: { children: React.ReactNode })
                 vacationDate
             })
                 .then(() => {
-                    alert("Documento atualizado com sucesso!")
+                    toast.success("Documento atualizado com sucesso!")
                     getEmployees()
                 })
         } catch (err) {
@@ -112,7 +117,7 @@ export function UserContextProvider({ children }: { children: React.ReactNode })
                 createdAt: new Date()
             })
                 .then(() => {
-                    alert('Empresa cadastrada com sucesso!')
+                    toast.success('Empresa cadastrada com sucesso!')
                     getCompanies()
                 })
         } catch (err) {
@@ -131,7 +136,7 @@ export function UserContextProvider({ children }: { children: React.ReactNode })
                 status
             })
                 .then(() => {
-                    alert("Documento atualizado com sucesso!")
+                    toast.success("Documento atualizado com sucesso!")
                     getCompanies()
                 })
         } catch (err) {
@@ -141,9 +146,9 @@ export function UserContextProvider({ children }: { children: React.ReactNode })
 
     //Get Employees
     async function getEmployees() {
-        const docsRef = collection(db, "employees")
+        const q = query(collection(db, 'employees'), orderBy('createdAt', 'desc'))
         try {
-            await getDocs(docsRef)
+            await getDocs(q)
                 .then((snapshot) => {
                     const list: EmployeeDocProps[] = []
                     snapshot.forEach((doc) => {
@@ -168,7 +173,7 @@ export function UserContextProvider({ children }: { children: React.ReactNode })
         try {
             await deleteDoc(docRef)
                 .then(() => {
-                    alert('Documento excluído com sucesso!')
+                    toast.success('Documento excluído com sucesso!')
                     if (docCollection === 'employees') {
                         getEmployees()
                     } else {
@@ -182,9 +187,9 @@ export function UserContextProvider({ children }: { children: React.ReactNode })
 
     //Get Companies
     async function getCompanies() {
-        const docsRef = collection(db, "companies")
+        const q = query(collection(db, 'companies'), orderBy('createdAt', 'desc'))
         try {
-            await getDocs(docsRef)
+            await getDocs(q)
                 .then((snapshot) => {
                     const list: CompanyDocProps[] = []
                     snapshot.forEach((doc) => {

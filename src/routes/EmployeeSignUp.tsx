@@ -9,6 +9,7 @@ import { auth, db } from '../libs/firebase'
 import { doc, setDoc } from 'firebase/firestore'
 import { useUserContext } from '../context/UserContext'
 import Loading from '../components/Loading'
+import { toast } from 'react-toastify'
 
 
 export default function EmployeeSignUp() {
@@ -39,13 +40,20 @@ export default function EmployeeSignUp() {
             .then(() => {
               localStorage.setItem("@userData", JSON.stringify(userData))
               setUserData(userData)
-              alert("Colaborador registrado com sucesso!")
+              toast.success(`Seja muito bem vindo colaborador, ${name}`)
               navigate("/", { replace: true })
               setLoadingAuth(false)
             })
         })
-    } catch (err) {
-      console.log(err)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      if (err.code === 'auth/email-already-in-use') {
+        toast.error('Email já cadastrado.')
+      } else if (err.code === 'auth/weak-password') {
+        toast.error('Senha muito fraca.')
+      } else {
+        console.log(err.code)
+      }
       setLoadingAuth(false)
     }
   }
@@ -60,10 +68,10 @@ export default function EmployeeSignUp() {
   return (
     <FormPageLayout subheading="Olá Colaborador, crie sua conta agora mesmo!">
       <form className="flex flex-col gap-6" onSubmit={handleOnSubmit}>
-        <Input placeholder="Nome" value={name} onChange={(e) => setName(e.target.value)} />
-        <Input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <Input type='password' placeholder="Senha" value={password} onChange={(e) => setPassword(e.target.value)} />
-        <Input placeholder="Cargo" value={role} onChange={(e) => setRole(e.target.value)} />
+        <Input required placeholder="Nome" value={name} onChange={(e) => setName(e.target.value)} />
+        <Input required type='email' placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <Input required type='password' placeholder="Senha" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <Input required placeholder="Cargo" value={role} onChange={(e) => setRole(e.target.value)} />
 
         <div className="flex flex-col gap-2 text-center">
           <button type="submit" className="w-full bg-zinc-950 py-3 text-zinc-50 font-medium md:text-base text-sm flex items-center justify-center">

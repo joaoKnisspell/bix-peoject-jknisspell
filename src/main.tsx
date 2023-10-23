@@ -14,6 +14,7 @@ import Companies from './routes/Companies.tsx'
 import NewEmployee from './routes/NewEmployee.tsx'
 import NewCompany from './routes/NewCompany.tsx'
 import App from './App.tsx'
+import { ToastContainer } from 'react-toastify'
 
 const router = createBrowserRouter([
   {
@@ -68,6 +69,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <UserContextProvider>
       <RouterProvider router={router} />
+      <ToastContainer autoClose={3000} />
     </UserContextProvider>
   </React.StrictMode>,
 )

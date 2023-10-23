@@ -7,6 +7,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../libs/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import Loading from "../components/Loading";
+import { toast } from "react-toastify";
 
 export default function SignIn() {
 
@@ -36,12 +37,19 @@ export default function SignIn() {
               }
               setUserData(userData)
               localStorage.setItem("@userData", JSON.stringify(userData))
+              toast.success('Olá, bom te ver novamente!')
               navigate("/")
               setLoadingAuth(false)
             })
         })
-    } catch (err) {
-      console.log(err)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      if(err.code == 'auth/invalid-login-credentials'){
+        toast.error("Email ou senha inválidos, tente novamente!")
+      } 
+      else {
+        console.log(err)
+      }
       setLoadingAuth(false)
     }
   }
@@ -56,8 +64,8 @@ export default function SignIn() {
   return (
     <FormPageLayout subheading="Olá visitante, bem vindo ao nosso sistema!">
       <form className="flex flex-col gap-6" onSubmit={handleOnSubmit}>
-        <Input placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
-        <Input type="password" placeholder="Senha" onChange={(e) => setPassword(e.target.value)} />
+        <Input required type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
+        <Input required type="password" placeholder="Senha" onChange={(e) => setPassword(e.target.value)} />
         <div className="flex flex-col gap-2 text-center">
           <button style={loadingAuth ? { cursor: 'not-allowed' } : { cursor: 'pointer' }} type="submit" className="w-full bg-zinc-950 py-3 text-zinc-50 font-medium md:text-base text-sm flex items-center justify-center">
             {loadingAuth ?

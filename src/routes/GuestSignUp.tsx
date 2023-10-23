@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FormEvent, useState } from "react";
 import FormPageLayout from "../components/FormPageLayout";
 import Input from "../components/FormPageLayout/input";
@@ -8,6 +9,7 @@ import { auth, db } from "../libs/firebase";
 import { useUserContext } from "../context/UserContext";
 import { doc, setDoc } from "firebase/firestore";
 import Loading from "../components/Loading";
+import { toast } from "react-toastify";
 
 export default function GuestSignUp() {
 
@@ -36,12 +38,17 @@ export default function GuestSignUp() {
             .then(() => {
               localStorage.setItem("@userData", JSON.stringify(userData))
               setUserData(userData)
+              toast.success(`Olá ${name}, bem vindo ao Bix.`)
               navigate("/")
               setLoadingAuth(false)
             })
         })
-    } catch (err) {
-      console.log(err)
+    } catch (err: any) {
+      if (err.code === 'auth/email-already-exists') {
+        toast.error('Email já cadastrado.')
+      } else if (err.code === 'auth/weak-password') {
+        toast.error('Senha muito fraca.')
+      }
       setLoadingAuth(false)
     }
   }
@@ -56,9 +63,9 @@ export default function GuestSignUp() {
   return (
     <FormPageLayout subheading="Olá Visitante, crie sua conta agora mesmo!">
       <form className="flex flex-col gap-6" onSubmit={handleOnSubmit}>
-        <Input placeholder="Digite seu nome" value={name} onChange={(e) => setName(e.target.value)} />
-        <Input placeholder="Digite seu email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <Input type="password" placeholder="Digite sua senha" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <Input required placeholder="Digite seu nome" value={name} onChange={(e) => setName(e.target.value)} />
+        <Input required type="email" placeholder="Digite seu email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <Input required type="password" placeholder="Digite sua senha" value={password} onChange={(e) => setPassword(e.target.value)} />
 
         <div className="flex flex-col gap-2 text-center">
           <button type="submit" className="w-full bg-zinc-950 py-3 text-zinc-50 font-medium md:text-base text-sm flex items-center justify-center">
