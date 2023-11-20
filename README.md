@@ -1,7 +1,7 @@
 # Desafio Bix - Apresentação
 
 <aside>
-💡 **Considerações:** O desafio era desenvolver um dashboard com funcionalidades de Criação, Leitura, Atualização e Exclusão (CRUD) de empresas e funcionários utilizando a tecnologia **********React.js********** para o front-end e **************Django************** para o back-end, no entanto, julgo ainda não ter o conhecimento necessário em **************Django************** para a construção do back-end, logo utilizei a ferramenta ******************Firebase****************** do Google para a contrução do back-end e autenticação de usuários.
+💡 Considerações: O desafio era desenvolver um dashboard com funcionalidades de Criação, Leitura, Atualização e Exclusão (CRUD) de empresas e funcionários utilizando a tecnologia React.js para o front-end e Django para o back-end, no entanto, julgo ainda não ter o conhecimento necessário em Django para a construção do back-end, logo utilizei a ferramenta Firebase do Google para a contrução do back-end e autenticação de usuários.
 
 </aside>
 
@@ -25,7 +25,7 @@
 
 # 🏗 Estrutura
 
-Dentro do diretório ************routes************ da aplicação optei por criar ******oito rotas distintas****** sendo: uma rota para **cadastro de usuários gerais**, uma rota para **cadastro de colaboradores da empresa**, uma **rota padrão de login** para todos os usuários cadastrados, uma **rota de dashboard** com os últimos funcionários e empresas cadastradas, uma **rota única para as empresas cadastradas**, uma **rota única para os funcionários cadastrados**, além de uma **rota para o cadastro de novos usuários** e uma **rota para cadastro de novas empresas**. 
+Dentro do diretório da aplicação optei por criar ******oito rotas distintas****** sendo: uma rota para **cadastro de usuários gerais**, uma rota para **cadastro de colaboradores da empresa**, uma **rota padrão de login** para todos os usuários cadastrados, uma **rota de dashboard** com os últimos funcionários e empresas cadastradas, uma **rota única para as empresas cadastradas**, uma **rota única para os funcionários cadastrados**, além de uma **rota para o cadastro de novos usuários** e uma **rota para cadastro de novas empresas**. 
 
 Além da pasta routes, a aplicação conta com uma pasta ********************components******************** onde estão inseridos todos os componentes que utilizei na criação da aplicação, uma pasta ****************context**************** que possui apenas o arquivo de criação do contexto da aplicação(**********************Context API**********************), e uma pasta ******lib****** que possui o arquivo de configuração do ******************firebase******************. 
 
